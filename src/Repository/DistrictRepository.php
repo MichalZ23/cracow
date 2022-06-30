@@ -77,13 +77,11 @@ class DistrictRepository extends ServiceEntityRepository
 
     public function checkIfDistrictExists(District $district): ?District
     {
-        $result = $this->createQueryBuilder('d')
+        return $this->createQueryBuilder('d')
             ->where('d.name = :name')
             ->setParameter('name', $district->getName())
             ->getQuery()
             ->getOneOrNullResult();
-
-        return $result;
     }
 
     /**

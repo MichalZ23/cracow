@@ -58,8 +58,6 @@ class DistrictFilter
         return $this->filterColumn;
     }
 
-
-
     public static function createFromArray(array $data): self
     {
         return new self(

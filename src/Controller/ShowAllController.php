@@ -16,7 +16,8 @@ class ShowAllController extends AbstractController
     public const SORT_COLUMN_KEY    = 'sortColumn';
     public const SORT_DIRECTION_KEY = 'sortDirection';
     public const FILTER_KEY         = 'filter';
-    public const FILTER_COLUMN_KEY= 'filterColumn';
+    public const FILTER_COLUMN_KEY  = 'filterColumn';
+
     /**
      * @Route("/{sortColumn}/{sortDirection}/{filter}/{filterColumn}",
      *     name="app_show_all",
@@ -30,8 +31,7 @@ class ShowAllController extends AbstractController
         string $filterColumn,
         Request $request,
         FilterServiceInterface $filterService
-    ): Response
-    {
+    ): Response {
 
         $form = $this->createForm(FilterType::class);
 
@@ -39,7 +39,7 @@ class ShowAllController extends AbstractController
             self::SORT_COLUMN_KEY => $sortColumn,
             self::SORT_DIRECTION_KEY => $sortDirection,
             self::FILTER_KEY => $filter,
-            self::FILTER_COLUMN_KEY => $filterColumn
+            self::FILTER_COLUMN_KEY => $filterColumn,
         ];
 
         $districtFilter = DistrictFilter::createFromArray($data);
@@ -55,15 +55,15 @@ class ShowAllController extends AbstractController
 
             return $this->redirectToRoute('app_show_all', [
                 self::SORT_COLUMN_KEY => $districtFilter->getSortColumn(),
-                self::SORT_DIRECTION_KEY=> $districtFilter->getSortDirection(),
-                self::FILTER_KEY=> $districtFilter->getFilter() ?? '%',
-                self::FILTER_COLUMN_KEY=> $districtFilter->getFilterColumn()
+                self::SORT_DIRECTION_KEY => $districtFilter->getSortDirection(),
+                self::FILTER_KEY => $districtFilter->getFilter() ?? '%',
+                self::FILTER_COLUMN_KEY => $districtFilter->getFilterColumn(),
             ]);
         }
 
         return $this->render('show_all/index.html.twig', [
             'districts' => $districts,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 }

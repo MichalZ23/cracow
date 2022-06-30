@@ -31,7 +31,6 @@ class GetDistrictDataService implements GetDataInterface
             throw new FetchDataException();
         }
 
-
         $city = 'Kraków';
 
         return new District($city, $name, (float)trim($area), (int)$population);
