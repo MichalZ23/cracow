@@ -36,12 +36,9 @@ class FetchDistrictDataService
      */
     public function fetch(): void
     {
-        $response = $this->httpClient->request('GET', 'https://www.bip.krakow.pl/?bip_id=1&mmi=25540');
-
-        $this->getDistrictDataService->setContent($response->getContent());
-
         for ($i = 25527; $i <= 25544; $i++) {
-            $district = $this->getDistrictDataService->getData();
+            $response = $this->httpClient->request('GET', "https://www.bip.krakow.pl/?bip_id=1&mmi=$i");
+            $district = $this->getDistrictDataService->getData($response->getContent());
             $this->districtRepository->add($district);
         }
     }

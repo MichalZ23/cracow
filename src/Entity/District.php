@@ -36,7 +36,7 @@ class District
     /**
      * @var string
      *
-     * @ORM\Column(length=20, nullable=false)
+     * @ORM\Column(length=255, nullable=false)
      */
     private string $name;
 
@@ -50,7 +50,7 @@ class District
     /**
      * @var int
      *
-     * @ORM\Column(type="float", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private int $population;
 

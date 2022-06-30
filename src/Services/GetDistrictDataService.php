@@ -7,17 +7,11 @@ use App\Entity\District;
 
 class GetDistrictDataService
 {
-    private string $content;
-
-    public function setContent(string $content): void
+    public function getData(string $content): District
     {
-        $this->content = $content;
-    }
-    public function getData(): District
-    {
-        preg_match('/(?<=\<p\>Powierzchnia dzielnicy: \<strong\>)\d*,\d*(?= ha\<\/strong>\<\/p\>)/u', $this->content, $areaArray);
-        preg_match('/(?<=\<p\>Liczba mieszkańców \(pobyt stały na dzień 31.12.2021\): \<strong\>)\d*(?=\<\/strong>\<\/p\>)/u', $this->content, $populationArray);
-        preg_match('/(?<=\<h1 class="bip"\>Dzielnica ).*(?=\<\/h1\>)/u', $this->content, $rowName);
+        preg_match('/(?<=\<p\>Powierzchnia dzielnicy: \<strong\>)\d*,\d*(?= ha)/u', $content, $areaArray);
+        preg_match('/(?<=\<strong\>)\s?\d*(?=\<\/strong>\<\/p\>)/u', $content, $populationArray);
+        preg_match('/(?<=\<h1 class="bip"\>Dzielnica ).*(?=\<\/h1\>)/u', $content, $rowName);
         $area = $areaArray[0];
         $population = $populationArray[0];
         $name = '';
@@ -34,6 +28,6 @@ class GetDistrictDataService
 
         $city = 'Kraków';
 
-        return new District($city, $name, $area, $population);
+        return new District($city, $name, (float)trim($area), (int)$population);
     }
 }

@@ -18,8 +18,6 @@ class FetchDistrictsController extends AbstractController
     {
         $fetchDistrictDataService->fetch();
 
-        return $this->render('fetch_districts/index.html.twig', [
-            'controller_name' => 'FetchDistrictsController',
-        ]);
+        return $this->redirectToRoute('app_show_all');
     }
 }
