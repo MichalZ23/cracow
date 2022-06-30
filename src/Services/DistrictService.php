@@ -33,10 +33,10 @@ class DistrictService
 
     public function updateDistrict(District $district, array $data): void
     {
-        $district->setCity($data['city']);
-        $district->setName($data['name']);
-        $district->setArea($data['area']);
-        $district->setPopulation($data['population']);
+        $district->setCity($data[District::CITY_KEY]);
+        $district->setName($data[District::NAME_KEY]);
+        $district->setArea($data[District::AREA_KEY]);
+        $district->setPopulation($data[District::POPULATION_KEY]);
 
         $this->districtRepository->add($district);
     }

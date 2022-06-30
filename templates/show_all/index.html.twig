@@ -30,7 +30,7 @@
                 <td>{{ district.id }}</td>
                 <td>{{ district.city }}</td>
                 <td>{{ district.name }}</td>
-                <td>{{ district.area }}</td>
+                <td>{{ district.area|number_format(2) }}</td>
                 <td>{{ district.population }}</td>
                 <td>
                     <a href="{{ path('app_update_district', {id: district.id}) }}">UPDATE</a>

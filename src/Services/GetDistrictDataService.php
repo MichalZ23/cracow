@@ -14,7 +14,7 @@ class GetDistrictDataService
         preg_match('/(?<=\<strong\>)\s?\d*(?=\<\/strong>\<\/p\>)/u', $content, $populationArray);
         preg_match('/(?<=\<h1 class="bip"\>Dzielnica ).*(?=\<\/h1\>)/u', $content, $rowName);
         try {
-            $area = $areaArray[0];
+            $area = str_replace(',', '.', $areaArray[0]);
             $population = $populationArray[0];
             $name = '';
             $nameArray = explode(' ', $rowName[0]);
