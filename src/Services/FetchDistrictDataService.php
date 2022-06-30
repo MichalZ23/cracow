@@ -13,6 +13,9 @@ class FetchDistrictDataService implements FetchDataInterface
     private DistrictRepository $districtRepository;
     private DistrictServiceInterface $districtService;
 
+    private const FIRST_NUMBER = 25527;
+    private const LAST_NUMBER = 25544;
+
     /**
      * @param HttpClientInterface    $httpClient
      * @param GetDistrictDataService $getDistrictDataService
@@ -39,7 +42,7 @@ class FetchDistrictDataService implements FetchDataInterface
      */
     public function fetch(): void
     {
-        for ($i = 25527; $i <= 25544; $i++) {
+        for ($i = self::FIRST_NUMBER; $i <= self::LAST_NUMBER; $i++) {
             $response = $this->httpClient->request('GET', "https://www.bip.krakow.pl/?bip_id=1&mmi=$i");
             $district = $this->getDistrictDataService->getData($response->getContent());
             if (!($fetchedDistrict = $this->districtRepository->checkIfDistrictExists($district))) {
