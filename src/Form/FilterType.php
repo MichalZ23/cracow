@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Form;
 
@@ -51,6 +52,7 @@ class FilterType extends \Symfony\Component\Form\AbstractType
                     'DESC' => 'desc'
                 ],
                 'expanded' => true,
+                'data' => 'asc'
             ])
             ->add('submit', SubmitType::class, ['label' => 'submit'])
             ->getForm();

@@ -141,4 +141,22 @@ class District
         $this->population = $population;
     }
 
+    public function toArray(): array
+    {
+        return [
+            self::CITY_KEY => $this->city,
+            self::NAME_KEY => $this->name,
+            self::AREA_KEY => $this->area,
+            self::POPULATION_KEY => $this->population
+        ];
+    }
+
+    public function equals(District $district): bool
+    {
+        return $this->name === $district->getName() &&
+            $this->city === $district->getCity() &&
+            $this->area === $district->getArea() &&
+            $this->population === $district->getPopulation();
+    }
+
 }

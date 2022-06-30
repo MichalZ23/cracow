@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\District;
@@ -73,5 +73,39 @@ class DistrictRepository extends ServiceEntityRepository
 
             return $qb->getQuery()->getArrayResult();
 
+    }
+
+    public function checkIfDistrictExists(District $district): ?District
+    {
+        $result = $this->createQueryBuilder('d')
+            ->where('d.name = :name')
+            ->setParameter('name', $district->getName())
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $result;
+    }
+
+    /**
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getExistedDistrict(District $district): ?District
+    {
+        $result = $this->createQueryBuilder('d')
+            ->where('d.name = :name')
+            ->andWhere('d.city = :city')
+            ->andWhere('d.population = :population')
+            ->andWhere('d.area = :area')
+            ->setParameters(
+                [
+                    'name' => $district->getName(),
+                    'city'=> $district->getCity(),
+                    'area' => $district->getArea(),
+                    'population' => $district->getPopulation()
+                ])
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $result ?? null;
     }
 }

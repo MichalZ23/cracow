@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Entity\District;
+use App\FetchDataException;
 
 class GetDistrictDataService
 {
@@ -12,19 +13,24 @@ class GetDistrictDataService
         preg_match('/(?<=\<p\>Powierzchnia dzielnicy: \<strong\>)\d*,\d*(?= ha)/u', $content, $areaArray);
         preg_match('/(?<=\<strong\>)\s?\d*(?=\<\/strong>\<\/p\>)/u', $content, $populationArray);
         preg_match('/(?<=\<h1 class="bip"\>Dzielnica ).*(?=\<\/h1\>)/u', $content, $rowName);
-        $area = $areaArray[0];
-        $population = $populationArray[0];
-        $name = '';
-        $nameArray = explode(' ', $rowName[0]);
-        $count = count($nameArray);
-        for ($i = 0; $i < $count; $i++) {
-            if ($i !== 0) {
-                $name .= $nameArray[$i];
+        try {
+            $area = $areaArray[0];
+            $population = $populationArray[0];
+            $name = '';
+            $nameArray = explode(' ', $rowName[0]);
+            $count = count($nameArray);
+            foreach ($nameArray as $key => $iValue) {
+                if ($key !== 0) {
+                    $name .= $iValue;
+                }
+                if ($key > 0 && $key !== $count - 1) {
+                    $name .= ' ';
+                }
             }
-            if ($i > 0 && $i !== $count - 1) {
-                $name .= ' ';
-            }
+        } catch (\Exception $e) {
+            throw new FetchDataException();
         }
+
 
         $city = 'Kraków';
 

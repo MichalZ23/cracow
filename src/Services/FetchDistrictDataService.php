@@ -11,22 +11,25 @@ class FetchDistrictDataService
     private HttpClientInterface $httpClient;
     private GetDistrictDataService $getDistrictDataService;
     private DistrictRepository $districtRepository;
+    private DistrictService $districtService;
 
     /**
-     * @param HttpClientInterface $httpClient
+     * @param HttpClientInterface    $httpClient
      * @param GetDistrictDataService $getDistrictDataService
-     * @param DistrictRepository $districtRepository
+     * @param DistrictRepository     $districtRepository
+     * @param DistrictService        $districtService
      */
     public function __construct(
         HttpClientInterface $httpClient,
         GetDistrictDataService $getDistrictDataService,
-        DistrictRepository $districtRepository
+        DistrictRepository $districtRepository,
+        DistrictService $districtService
     ) {
         $this->httpClient = $httpClient;
         $this->getDistrictDataService = $getDistrictDataService;
         $this->districtRepository = $districtRepository;
+        $this->districtService = $districtService;
     }
-
 
     /**
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
@@ -39,7 +42,12 @@ class FetchDistrictDataService
         for ($i = 25527; $i <= 25544; $i++) {
             $response = $this->httpClient->request('GET', "https://www.bip.krakow.pl/?bip_id=1&mmi=$i");
             $district = $this->getDistrictDataService->getData($response->getContent());
-            $this->districtRepository->add($district);
+            if (!($fetchedDistrict = $this->districtRepository->checkIfDistrictExists($district))) {
+                $this->districtRepository->add($district);
+            } else if (!$district->equals($fetchedDistrict)) {
+//                dump($district);exit();
+                $this->districtService->updateDistrict($fetchedDistrict, $district->toArray());
+            }
         }
     }
 }
