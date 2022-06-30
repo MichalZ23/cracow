@@ -37,6 +37,9 @@ class DistrictService implements DistrictServiceInterface
         $district->setArea($data[District::AREA_KEY]);
         $district->setPopulation($data[District::POPULATION_KEY]);
 
-        $this->districtRepository->add($district);
+        if(!$this->districtRepository->checkIfDistrictExists($district)){
+            $this->districtRepository->add($district);
+        }
+
     }
 }
