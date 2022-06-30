@@ -6,12 +6,12 @@ namespace App\Services;
 use App\Repository\DistrictRepository;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class FetchDistrictDataService
+class FetchDistrictDataService implements FetchDataInterface
 {
     private HttpClientInterface $httpClient;
-    private GetDistrictDataService $getDistrictDataService;
+    private GetDataInterface $getDistrictDataService;
     private DistrictRepository $districtRepository;
-    private DistrictService $districtService;
+    private DistrictServiceInterface $districtService;
 
     /**
      * @param HttpClientInterface    $httpClient
@@ -45,7 +45,6 @@ class FetchDistrictDataService
             if (!($fetchedDistrict = $this->districtRepository->checkIfDistrictExists($district))) {
                 $this->districtRepository->add($district);
             } else if (!$district->equals($fetchedDistrict)) {
-//                dump($district);exit();
                 $this->districtService->updateDistrict($fetchedDistrict, $district->toArray());
             }
         }

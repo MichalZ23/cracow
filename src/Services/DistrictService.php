@@ -6,7 +6,7 @@ namespace App\Services;
 use App\Entity\District;
 use App\Repository\DistrictRepository;
 
-class DistrictService
+class DistrictService implements DistrictServiceInterface
 
 {
     private DistrictRepository $districtRepository;

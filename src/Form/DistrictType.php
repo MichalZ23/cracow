@@ -17,7 +17,7 @@ namespace App\Form;
             $builder
                 ->add(District::NAME_KEY, TextType::class)
                 ->add(District::CITY_KEY, TextType::class)
-                ->add(District::AREA_KEY, NumberType::class, ['precision' => 2])
+                ->add(District::AREA_KEY, NumberType::class)
                 ->add(District::POPULATION_KEY, IntegerType::class)
                 ->add('save', SubmitType::class, ['label' => 'Add'])
                 ->getForm();

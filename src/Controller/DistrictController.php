@@ -7,6 +7,7 @@ use App\Entity\District;
 use App\Form\DistrictType;
 use App\Repository\DistrictRepository;
 use App\Services\DistrictService;
+use App\Services\DistrictServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -22,7 +23,7 @@ class DistrictController extends AbstractController
     /**
      * @Route("/add", name="app_add_district")
      */
-    public function addDistrictAction(Request $request, DistrictService $districtService): Response
+    public function addDistrictAction(Request $request, DistrictServiceInterface $districtService): Response
     {
         $form = $this->createForm(DistrictType::class);
 

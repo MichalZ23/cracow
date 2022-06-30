@@ -6,7 +6,7 @@ namespace App\Services;
 use App\Entity\District;
 use App\FetchDataException;
 
-class GetDistrictDataService
+class GetDistrictDataService implements GetDataInterface
 {
     public function getData(string $content): District
     {

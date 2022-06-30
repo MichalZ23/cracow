@@ -5,7 +5,7 @@ namespace App\Services;
 
 use App\Repository\DistrictRepository;
 
-class FilterService
+class FilterService implements FilterServiceInterface
 {
     private DistrictRepository $districtRepository;
 

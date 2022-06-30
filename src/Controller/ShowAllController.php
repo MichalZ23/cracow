@@ -4,9 +4,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\FilterType;
-use App\Repository\DistrictRepository;
 use App\Services\DistrictFilter;
-use App\Services\FilterService;
+use App\Services\FilterServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +29,7 @@ class ShowAllController extends AbstractController
         ?string $filter,
         string $filterColumn,
         Request $request,
-        FilterService $filterService
+        FilterServiceInterface $filterService
     ): Response
     {
 
