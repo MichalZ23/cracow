@@ -16,8 +16,8 @@ class FilterService
         $this->districtRepository = $districtRepository;
     }
 
-    public function filter(array $parameters): array
+    public function filter(DistrictFilter $districtFilter): array
     {
-        return $this->districtRepository->filter($parameters);
+        return $this->districtRepository->filter($districtFilter);
     }
 }

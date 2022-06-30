@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\District;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -13,30 +14,34 @@ class FilterType extends \Symfony\Component\Form\AbstractType
     {
         $builder
             ->setMethod('GET')
-            ->add('filter', TextType::class)
+            ->add('filter', TextType::class, [
+                'required' => false
+            ])
             ->add('filterColumn', ChoiceType::class,
                 [
                     'choices' =>
                         [
-                            'id' => 'id',
-                            'city' => 'city',
-                            'name' => 'name',
-                            'area' => 'area',
-                            'population' => 'population'
+                            District::ID_KEY => District::ID_KEY,
+                            District::CITY_KEY => District::CITY_KEY,
+                            District::NAME_KEY => District::NAME_KEY,
+                            District::AREA_KEY => District::AREA_KEY,
+                            District::POPULATION_KEY => District::POPULATION_KEY
                         ],
                     'expanded' => true,
+                    'data' => District::NAME_KEY
                 ])
             ->add('sortColumn', ChoiceType::class,
                 [
                     'choices' =>
                         [
-                            'id' => 'id',
-                            'city' => 'city',
-                            'name' => 'name',
-                            'area' => 'area',
-                            'population' => 'population'
+                            District::ID_KEY => District::ID_KEY,
+                            District::CITY_KEY => District::CITY_KEY,
+                            District::NAME_KEY => District::NAME_KEY,
+                            District::AREA_KEY => District::AREA_KEY,
+                            District::POPULATION_KEY => District::POPULATION_KEY
                         ],
                     'expanded' => true,
+                    'data' => District::ID_KEY
                 ])
             ->add('sortDirection', ChoiceType::class,
             [

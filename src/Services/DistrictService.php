@@ -21,10 +21,10 @@ class DistrictService
     public function addDistrict(array $data): void
     {
         $district = new District(
-            $data['city'],
-            $data['name'],
-            $data['area'],
-            $data['population']
+            $data[District::CITY_KEY],
+            $data[District::NAME_KEY],
+            $data[District::AREA_KEY],
+            $data[District::POPULATION_KEY]
         );
 
         $this->districtRepository->add($district);

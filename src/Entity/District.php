@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Services\DistrictFilter;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class District
 {
+    public const ID_KEY = 'id';
+    public const NAME_KEY = 'name';
+    public const CITY_KEY = 'city';
+    public const AREA_KEY = 'area';
+    public const POPULATION_KEY = 'population';
     /**
      * @var int
      *
@@ -134,6 +140,5 @@ class District
     {
         $this->population = $population;
     }
-
 
 }
