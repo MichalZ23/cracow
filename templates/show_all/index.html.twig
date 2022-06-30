@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Districts in Cracow{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 1200px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <div>
+        <a href="{{ path('app_add_district') }}">Add new district</a>
+    </div>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>city</th>
+            <th>name</th>
+            <th>area</th>
+            <th>population</th>
+            <th>edit</th>
+            <th>delete</th>
+        </tr>
+        {% for district in districts %}
+            <tr>
+                <td>{{ district.id }}</td>
+                <td>{{ district.city }}</td>
+                <td>{{ district.name }}</td>
+                <td>{{ district.area }}</td>
+                <td>{{ district.population }}</td>
+                <td>
+                    <a href="{{ path('app_update_district', {id: district.id}) }}">UPDATE</a>
+                </td>
+                <td>
+                    <form method="post" action="{{ path('app_delete_district', {id: district.id}) }}">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input name="delete" type="submit" value="delete">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {{ form(form) }}
+</div>
+{% endblock %}
